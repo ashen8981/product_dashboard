@@ -40,6 +40,7 @@ class ItemFormViewState extends State<ItemFormView> {
     final screenHeight = MediaQuery.of(context).size.height;
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: AppColors.defaultWhite,
       appBar: AppBar(
         backgroundColor: AppColors.customBlue,
         leading: const Icon(Icons.sticky_note_2_outlined, size: 30, color: AppColors.defaultWhite),
