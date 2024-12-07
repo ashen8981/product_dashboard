@@ -66,4 +66,22 @@ class ItemViewModel extends ChangeNotifier {
   void _calculateNetAmount() {
     _netAmount = _sales.fold(0.0, (total, sale) => total + sale.amount);
   }
+
+
+  set selectedItem(String? value) {
+    _selectedItem = value;
+    notifyListeners();
+  }
+
+  bool validateForm(String qty) {
+    // Validation for required fields
+    if (_selectedItem == null || _selectedItem!.isEmpty) {
+      return false; // Item must be selected
+    }
+    if (qty.isEmpty || double.tryParse(qty) == null) {
+      return false; // Quantity must be a valid number
+    }
+    return true;
+  }
+
 }

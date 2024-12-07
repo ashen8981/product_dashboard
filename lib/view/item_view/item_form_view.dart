@@ -235,16 +235,25 @@ class ItemFormViewState extends State<ItemFormView> {
                 SizedBox(height: screenHeight * 0.03),
                 ElevatedButton(
                   onPressed: () {
-                    final price = double.tryParse(_priceController.text) ?? 0.0;
-                    final qty = int.tryParse(_qtyController.text) ?? 0;
-                    final discount = double.tryParse(_discountController.text) ?? 0.0;
-                    viewModel.addSale(price, qty, discount, _reasonController.text);
-                    _clearFields();
+                    final qty = _qtyController.text;
+
+                    // Validate the form using the ViewModel's validateForm method
+                    if (viewModel.validateForm(qty)) {
+                      final price = double.tryParse(_priceController.text) ?? 0.0;
+                      final discount = double.tryParse(_discountController.text) ?? 0.0;
+                      viewModel.addSale(price, int.tryParse(qty) ?? 0, discount, _reasonController.text);
+                      _clearFields();
+                    } else {
+                      // Show an error message if validation fails
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Please fill in required fields.')),
+                      );
+                    }
                   },
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.customBlue, // Sets the background color to blue
+                    backgroundColor: AppColors.customBlue,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(5), // Sets the border radius to 5
+                      borderRadius: BorderRadius.circular(5),
                     ),
                   ),
                   child: const CommonText(
@@ -265,6 +274,6 @@ class ItemFormViewState extends State<ItemFormView> {
     _qtyController.clear();
     _discountController.clear();
     _reasonController.clear();
-    _selectedItemController.dispose();
+    _selectedItemController.clear();
   }
 }
