@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import '../../../utils/app_colors.dart';
 import '../../../viewModel/item_viewmodel.dart';
@@ -5,74 +7,76 @@ import '../../common_widget/common_text.dart';
 
 Widget buildDataTable(BuildContext context, ItemViewModel viewModel) {
   final screenWidth = MediaQuery.of(context).size.width;
+
   return SingleChildScrollView(
-    scrollDirection: Axis.horizontal, // Make the DataTable horizontally scrollable
-    child: DataTable(
-      columnSpacing: screenWidth * 0.05, // Adjust the spacing between columns
-      showBottomBorder: false, // Remove the default divider at the bottom
-      dividerThickness: 0, // Remove dividers between rows
-      headingRowColor: WidgetStateProperty.all(AppColors.customGrey),
-      border: const TableBorder(
-        horizontalInside: BorderSide(
-          color: AppColors.customGrey, // Color of the divider between columns
-          width: 1.0, // Divider thickness
+    scrollDirection: Axis.horizontal, // Allow horizontal scrolling
+    child: SizedBox(
+      width: screenWidth, // Set the container width to the screen width
+      child: Table(
+        border: TableBorder.all(
+          color: AppColors.customGrey, // Set border color for the table
+          width: 1.0, // Set border thickness
         ),
-      ),
-      columns: const [
-        DataColumn(
-            label: CommonText(
-          'Item',
-          style: TextStyle(fontSize: 14),
-        )),
-        DataColumn(
-            label: CommonText(
-          'Price',
-          style: TextStyle(fontSize: 14),
-        )),
-        DataColumn(
-            label: CommonText(
-          'Qty',
-          style: TextStyle(fontSize: 14),
-        )),
-        DataColumn(
-            label: CommonText(
-          'Discount',
-          style: TextStyle(fontSize: 14),
-        )),
-        DataColumn(
-            label: CommonText(
-          'Amount',
-          style: TextStyle(fontSize: 14),
-        )),
-      ],
-      rows: viewModel.sales
-          .map(
-            (sale) => DataRow(
-              cells: [
-                DataCell(CommonText(
-                  sale.itemName,
-                  style: const TextStyle(fontSize: 14),
-                )),
-                DataCell(CommonText(
-                  sale.price.toString(),
-                  style: const TextStyle(fontSize: 14),
-                )),
-                DataCell(CommonText(
-                  sale.qty.toString(),
-                  style: const TextStyle(fontSize: 14),
-                )),
-                DataCell(CommonText(
-                  '${sale.discount}%',
-                  style: const TextStyle(fontSize: 14),
-                )),
-                DataCell(CommonText(
-                  sale.amount.toStringAsFixed(2),
-                  style: const TextStyle(fontSize: 14),
-                )),
+        columnWidths: {
+          0: const IntrinsicColumnWidth(),
+          1: FixedColumnWidth(screenWidth * 0.2),
+          2: FixedColumnWidth(screenWidth * 0.1),
+          3: FixedColumnWidth(screenWidth * 0.15),
+          4: FixedColumnWidth(screenWidth * 0.2),
+        },
+        children: [
+          // Header Row
+          TableRow(
+            decoration: const BoxDecoration(color: AppColors.customGrey),
+            children: [
+              _buildTableRCell('Item'),
+              _buildTableRCell('Price'),
+              _buildTableRCell('Qty'),
+              _buildTableRCell('Discount'),
+              _buildTableRCell('Amount'),
+            ],
+          ),
+          // Data Rows
+          for (var sale in viewModel.sales)
+            TableRow(
+              children: [
+                _buildTableCell(sale.itemName),
+                _buildTableCell(sale.price.toString()),
+                _buildTableCell(sale.qty.toString()),
+                _buildTableCell('${sale.discount}%'),
+                _buildTableCell(sale.amount.toStringAsFixed(2)),
               ],
             ),
-          )
-          .toList(),
+        ],
+      ),
+    ),
+  );
+}
+
+Widget _buildTableCell(String text) {
+  return TableCell(
+    child: Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: CommonText(
+          text,
+          style: const TextStyle(fontSize: 14),
+        ),
+      ),
+    ),
+  );
+}
+
+Widget _buildTableRCell(String text) {
+  return TableCell(
+    child: Center(
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 15.0),
+        child: CommonText(
+          text,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+        ),
+      ),
     ),
   );
 }
