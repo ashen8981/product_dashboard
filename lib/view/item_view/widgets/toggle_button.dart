@@ -16,73 +16,72 @@ class CustomToggleButtonState extends State<CustomToggleButton> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                setState(() => _selectedIndex = 0);
-                widget.onToggle(0); // Notify the parent widget
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                decoration: BoxDecoration(
-                  color: _selectedIndex == 0 ? AppColors.customBlue : AppColors.defaultWhite,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.0),
-                    bottomLeft: Radius.circular(8.0),
-                  ),
-                  border: Border.all(
-                    color: AppColors.customBlue,
-                    width: 2.5,
-                  ),
+    final screenWidth = MediaQuery.of(context).size.width;
+    return Row(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              setState(() => _selectedIndex = 0);
+              widget.onToggle(0); // Notify the parent widget
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: screenWidth * 0.042),
+              decoration: BoxDecoration(
+                color: _selectedIndex == 0 ? AppColors.customBlue : AppColors.defaultWhite,
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
                 ),
-                child: Center(
-                  child: CommonText(
-                    'General',
-                    style: TextStyle(
-                      color: _selectedIndex == 0 ? Colors.white : Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                border: Border.all(
+                  color: AppColors.customBlue,
+                  width: 2.5,
+                ),
+              ),
+              child: Center(
+                child: CommonText(
+                  'General',
+                  style: TextStyle(
+                    color: _selectedIndex == 0 ? Colors.white : AppColors.customBlue,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
           ),
-          Expanded(
-            child: GestureDetector(
-              onTap: () {
-                setState(() => _selectedIndex = 1);
-                widget.onToggle(1); // Notify the parent widget
-              },
-              child: Container(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
-                decoration: BoxDecoration(
-                  color: _selectedIndex == 1 ? AppColors.customBlue : AppColors.defaultWhite,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(8.0),
-                    bottomRight: Radius.circular(8.0),
-                  ),
-                  border: Border.all(
-                    color: AppColors.customBlue,
-                    width: 2.5,
-                  ),
+        ),
+        Expanded(
+          child: GestureDetector(
+            onTap: () {
+              setState(() => _selectedIndex = 1);
+              widget.onToggle(1); // Notify the parent widget
+            },
+            child: Container(
+              padding: EdgeInsets.symmetric(vertical: screenWidth * 0.042),
+              decoration: BoxDecoration(
+                color: _selectedIndex == 1 ? AppColors.customBlue : AppColors.defaultWhite,
+                borderRadius: const BorderRadius.only(
+                  topRight: Radius.circular(8.0),
+                  bottomRight: Radius.circular(8.0),
                 ),
-                child: Center(
-                  child: CommonText(
-                    'Items',
-                    style: TextStyle(
-                      color: _selectedIndex == 1 ? Colors.white : Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
+                border: Border.all(
+                  color: AppColors.customBlue,
+                  width: 2.5,
+                ),
+              ),
+              child: Center(
+                child: CommonText(
+                  'Items',
+                  style: TextStyle(
+                    color: _selectedIndex == 1 ? Colors.white : AppColors.customBlue,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }
