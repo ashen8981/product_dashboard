@@ -67,7 +67,6 @@ class ItemViewModel extends ChangeNotifier {
     _netAmount = _sales.fold(0.0, (total, sale) => total + sale.amount);
   }
 
-
   set selectedItem(String? value) {
     _selectedItem = value;
     notifyListeners();
@@ -83,5 +82,4 @@ class ItemViewModel extends ChangeNotifier {
     }
     return true;
   }
-
 }

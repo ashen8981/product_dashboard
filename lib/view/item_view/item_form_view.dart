@@ -51,9 +51,9 @@ class ItemFormViewState extends State<ItemFormView> {
         ),
         actions: [
           const Icon(Icons.u_turn_left_rounded, size: 30, color: AppColors.defaultWhite),
-          SizedBox(width:  screenWidth * 0.02),
+          SizedBox(width: screenWidth * 0.02),
           const Icon(Icons.check_circle, size: 30, color: AppColors.defaultWhite),
-          SizedBox(width:  screenWidth * 0.04)
+          SizedBox(width: screenWidth * 0.04)
         ],
       ),
       body: SingleChildScrollView(
@@ -145,7 +145,7 @@ class ItemFormViewState extends State<ItemFormView> {
           SizedBox(height: screenHeight * 0.02),
           _buildForm(context, viewModel),
           SizedBox(height: screenHeight * 0.02),
-          SingleChildScrollView(scrollDirection: Axis.horizontal, child: buildDataTable(context,viewModel)),
+          SingleChildScrollView(scrollDirection: Axis.horizontal, child: buildDataTable(context, viewModel)),
         ],
       ),
     );
