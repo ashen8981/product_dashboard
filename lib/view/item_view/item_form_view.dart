@@ -119,6 +119,7 @@ class ItemFormViewState extends State<ItemFormView> {
   }
 
   Widget _buildNetAmount(ItemViewModel viewModel) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.0),
@@ -126,9 +127,21 @@ class ItemFormViewState extends State<ItemFormView> {
       ),
       height: 60,
       alignment: Alignment.center,
-      child: CommonText(
-        'Net Amount: \$${viewModel.netAmount.toStringAsFixed(2)}',
-        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          SizedBox(width: screenWidth * 0.04),
+          const CommonText(
+            'Net Amount: ',
+            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          const Spacer(),
+          CommonText(
+            viewModel.netAmount.toStringAsFixed(2),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(width: screenWidth * 0.04)
+        ],
       ),
     );
   }
